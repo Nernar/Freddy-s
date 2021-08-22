@@ -1,0 +1,27 @@
+{
+	"format_version": "1.10.0",
+	"minecraft:client_entity": {
+		"description": {
+			"identifier": "ntfnaf:camera",
+			"materials": {
+				"default": "entity_alphatest"
+			},
+			"textures": {
+				"default": "textures/entity/ntfnaf/camera/camera",
+				"blink": "textures/entity/ntfnaf/camera/blink"
+			},
+			"geometry": {
+				"default": "geometry.ntfnaf.camera"
+			},
+			"scripts": [
+				"animate": [
+					"look_at_target"
+				]
+			],
+			"animations": {
+				"look_at_target": "animation.common.look_at_target"
+			},
+			"render_controllers": [ "controller.render.ntfnaf.camera" ]
+		}
+	}
+}

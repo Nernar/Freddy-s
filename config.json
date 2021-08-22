@@ -1,0 +1,7 @@
+{
+  "enabled":true,
+  "interface":{
+    "hide_tablet_button":true,
+    "show_debug_log_window":false
+  }
+}

@@ -1,0 +1,53 @@
+{
+	"description": {
+		"en": "Here you can find all settings for this modification.",
+		"ru": "Тут можно найти все настройки этой модификации."
+	},
+	
+	"properties": {
+		"enabled": {
+			"name": {
+				"en": "Launch",
+				"ru": "Запуск"
+			},
+			"description": {
+				"en": "Changes launch state of modification; if disabled, mod willn't be launched.",
+				"ru": "Меняет состояния запускаемости мода, если отключено - мод запущен не будет."
+			},
+			"index": 0
+		},
+		
+		"interface": {
+			"name": {
+				"en": "Interface",
+				"ru": "Интерфейс"
+			},
+			"index": 1,
+			"collapsible": false
+		},
+		
+		"interface.hide_tablet_button": {
+			"name": {
+				"en": "Hide Tablet Button",
+				"ru": "Скрывать кнопку планшета"
+			},
+			"description": {
+				"en": "Tablet button became transparent, makes display more immersively",
+				"ru": "Кнопка планшета становится прозрачной, делая экран иммерсивным"
+			},
+			"index": 2
+		},
+		
+		"interface.show_debug_log_window": {
+			"name": {
+				"en": "Show Development Log",
+				"ru": "Показывать отладочный лог"
+			},
+			"description": {
+				"en": "In right up display corner was debugging actions, executed during gameplay process",
+				"ru": "В правом верхнем углу экрана отображаются действия, происходящие во время игрового процесса"
+			},
+			"index": 3
+		}
+	}
+}

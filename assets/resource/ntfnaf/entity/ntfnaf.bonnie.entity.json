@@ -1,0 +1,41 @@
+{
+	"format_version": "1.10.0",
+	"minecraft:client_entity": {
+		"description": {
+			"identifier": "ntfnaf:bonnie",
+			"materials": {
+				"default": "entity_alphatest"
+			},
+			"textures": {
+				"default": "textures/entity/ntfnaf/bonnie/bonnie",
+				"blink": "textures/entity/ntfnaf/bonnie/blink",
+				"darkness": "textures/entity/ntfnaf/bonnie/darkness",
+				"glowing": "textures/entity/ntfnaf/bonnie/glowing",
+				"glowing_wry": "textures/entity/ntfnaf/bonnie/glowing_wry",
+				"catch": "textures/entity/ntfnaf/bonnie/catch"
+			},
+			"geometry": {
+				"default": "geometry.ntfnaf.bonnie"
+			},
+			"scripts": {
+				"pre_animation": [
+					"variable.tcos0 = (Math.cos(query.modified_distance_moved * 38.17) * query.modified_move_speed / variable.gliding_speed_value) * 57.3;"
+				],
+				"animate": [
+					"controller_move",
+					"controller_look_at_target"
+				]
+			},
+			"animations": {
+				"move": "animation.humanoid.move",
+				"look_at_target_default": "animation.humanoid.look_at_target.default",
+				"look_at_target_gliding": "animation.humanoid.look_at_target.gliding",
+				"look_at_target_swimming": "animation.humanoid.look_at_target.swimming",
+				"controller_move": "controller.animation.humanoid.move",
+				"controller_look_at_target": "controller.animation.humanoid.look_at_target"
+			},
+			"render_controllers": [ "controller.render.ntfnaf.bonnie" ],
+			"enable_attachables": true
+		}
+	}
+}

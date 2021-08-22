@@ -1,0 +1,23 @@
+{
+	"format_version": "1.8.0",
+	"render_controllers": {
+		"controller.render.ntfnaf.freddy": {
+			"arrays": {
+				"textures": {
+					"Array.skins": [ 
+						"Texture.default",
+						"Texture.darkness",
+						"Texture.glowing",
+						"Texture.catch",
+						"Texture.look_around",
+						"Texture.ambience",
+						"Texture.dead"
+					]
+				}
+			},
+			"geometry": "Geometry.default",
+			"materials": [ { "*": "Material.default" } ],
+			"textures": [ "Array.skins[query.variant]" ]
+		}
+	}
+}

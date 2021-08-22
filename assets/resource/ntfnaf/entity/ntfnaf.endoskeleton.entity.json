@@ -1,0 +1,39 @@
+{
+	"format_version": "1.10.0",
+	"minecraft:client_entity": {
+		"description": {
+			"identifier": "ntfnaf:endoskeleton",
+			"materials": {
+				"default": "skeleton"
+			},
+			"textures": {
+				"default": "textures/entity/ntfnaf/endoskeleton/endoskeleton"
+			},
+			"geometry": {
+				"default": "geometry.skeleton.v1.8"
+			},
+			"scripts": {
+				"pre_animation": [
+					"variable.tcos0 = (Math.cos(query.modified_distance_moved * 38.17) * query.modified_move_speed / variable.gliding_speed_value) * 57.3;"
+				],
+				"animate": [
+					"controller_move",
+					"controller_sneaking",
+					"controller_look_at_target"
+				]
+			},
+			"animations": {
+				"move": "animation.humanoid.move",
+				"sneaking": "animation.humanoid.sneaking",
+				"look_at_target_default": "animation.humanoid.look_at_target.default",
+				"look_at_target_gliding": "animation.humanoid.look_at_target.gliding",
+				"look_at_target_swimming": "animation.humanoid.look_at_target.swimming",
+				"controller_move": "controller.animation.humanoid.move",
+				"controller_sneaking": "controller.animation.humanoid.sneaking",
+				"controller_look_at_target": "controller.animation.humanoid.look_at_target"
+			},
+			"render_controllers": [ "controller.render.default" ],
+			"enable_attachables": true
+		}
+	}
+}

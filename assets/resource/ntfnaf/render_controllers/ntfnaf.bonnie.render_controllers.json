@@ -1,0 +1,22 @@
+{
+	"format_version": "1.8.0",
+	"render_controllers": {
+		"controller.render.ntfnaf.bonnie": {
+			"arrays": {
+				"textures": {
+					"Array.skins": [ 
+						"Texture.default",
+						"Texture.blink",
+						"Texture.darkness",
+						"Texture.glowing",
+						"Texture.catch",
+						"Texture.glowing_wry"
+					]
+				}
+			},
+			"geometry": "Geometry.default",
+			"materials": [ { "*": "Material.default" } ],
+			"textures": [ "Array.skins[query.variant]" ]
+		}
+	}
+}
