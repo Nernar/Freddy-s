@@ -35,7 +35,8 @@
 			},
 			"minecraft:health": {
 				"value": 10,
-				"max": 10
+				"max": 10,
+				"min": 1
 			},
 			"minecraft:persistent": {},
 			"minecraft:navigation.walk": {}

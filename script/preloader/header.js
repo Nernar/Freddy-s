@@ -18,6 +18,25 @@
 
 const IN_CREATIVE = false;
 
-let worldExtractionError = null;
+const tryout = function(action, report, basic) {
+	try {
+		if (typeof action == "function") {
+			return action.call(this);
+		}
+	} catch (e) {
+		if (typeof report == "function") {
+			let result = report.call(this, e);
+			if (result !== undefined) return result;
+		} else {
+			reportError(e);
+			if (report !== undefined) {
+				return report;
+			}
+		}
+	}
+	return basic;
+};
 
-IMPORT("Retention:5");
+const isHorizon = tryout(function() {
+	return Packages.com.zhekasmirnov.innercore.api.Version.INNER_CORE_VERSION.level >= 10;
+}, new Function(), false);

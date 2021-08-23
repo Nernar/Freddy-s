@@ -30,14 +30,15 @@
 			},
 			"minecraft:collision_box": {
 				"width": 0.6,
-				"height": 1.8
+				"height": 1.9
 			},
 			"minecraft:attack": {
 				"damage": 20
 			},
 			"minecraft:health": {
 				"value": 80,
-				"max": 80
+				"max": 80,
+				"min": 1
 			},
 			"minecraft:persistent": {},
 			"minecraft:movement.basic": {},

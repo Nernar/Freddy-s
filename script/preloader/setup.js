@@ -18,6 +18,8 @@ const getModificationWorldLocation = function() {
 	return getWorldsStorageLocation() + getModificationWorldDirectory() + "/";
 };
 
+let worldExtractionError = null;
+
 tryout(function() {
 	let location = getWorldsStorageLocation(),
 		outputPath = getModificationWorldDirectory(),

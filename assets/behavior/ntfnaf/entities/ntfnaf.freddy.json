@@ -37,12 +37,8 @@
 			},
 			"minecraft:health": {
 				"value": 80,
-				"max": 80
-			},
-			"minecraft:behavior.look_at_player": {
-				"priority": 0,
-				"look_distance": 2.0,
-				"probability": 0.2
+				"max": 80,
+				"min": 1
 			},
 			"minecraft:persistent": {},
 			"minecraft:movement.basic": {},

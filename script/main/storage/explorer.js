@@ -2,7 +2,7 @@ MCSystem.setLoadingTip(NAME + ": Preparing APIs");
 
 const Dirs = {
 	EXTERNAL: android.os.Environment.getExternalStorageDirectory(),
-	DATA: android.os.Environment.getDataDirectory() + "/data/" + (isHorizon ? context.getPackageName() : "com.zhekasmirnov.innercore") + "/",
+	DATA: android.os.Environment.getDataDirectory() + "/data/" + (isHorizon ? getContext().getPackageName() : "com.zhekasmirnov.innercore") + "/",
 	MOD: isHorizon ? __packdir__ + "innercore/mods/" : "/games/com.mojang/mods/",
 	WORLD: isHorizon ? __packdir__ + "worlds/" : "/games/com.mojang/innercoreWorlds/",
 	OPTION: isHorizon ? "/games/horizon/minecraftpe/options.txt" : "/games/com.mojang/minecraftpe/options.txt",
@@ -226,7 +226,7 @@ Files.deleteRecursive = function(path, explore) {
 };
 
 Files.getFromAssets = function(name) {
-	let assets = context.getAssets();
+	let assets = getContext().getAssets();
 	return assets.open(name);
 };
 
@@ -256,7 +256,7 @@ Files.read = function(file, massive) {
 		result = new Array(),
 		line;
 	while (line = reader.readLine()) {
-		result.push(line);
+		result.push(String(line));
 	}
 	return massive ? result : result.join("\n");
 };
@@ -269,7 +269,7 @@ Files.readLine = function(file, index) {
 	while (count < index && (line = reader.readLine())) {
 		count++;
 	}
-	return count == index ? line : null;
+	return count == index ? String(line) : null;
 };
 
 Files.readLines = function(file, startInd, endInd) {
@@ -280,7 +280,7 @@ Files.readLines = function(file, startInd, endInd) {
 		line;
 	while (count <= endInd && (line = reader.readLine())) {
 		if (count >= startInd) {
-			result.push(line);
+			result.push(String(line));
 		}
 		count++;
 	}
@@ -322,7 +322,7 @@ Files.sendMail = function(file) {
 	let intent = new android.content.Intent("android.intent.action.SEND");
 	intent.setType("text/plain");
 	intent.putExtra("android.intent.extra.TEXT", Files.read(file));
-	context.startActivity(intent);
+	getContext().startActivity(intent);
 };
 
 Files.linesCount = function(file) {

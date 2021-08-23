@@ -17,7 +17,7 @@
 */
 
 if (!this.hasOwnProperty("MCSystem")) {
-	const MCSystem = ModAPI.requireGlobal("MCSystem");
+	MCSystem = ModAPI.requireGlobal("MCSystem");
 }
 
 // Currently build information
@@ -63,11 +63,16 @@ const PRELOADER = require(function() {
 let DEVELOP = true;
 let MAY_DEBUG = false;
 let DEMO = true;
+let LOW_MEMORY_MODE = require(function() {
+	let runtime = java.lang.Runtime.getRuntime();
+	return runtime.maxMemory() < 2048 * 1024 * 1024 * 8
+		|| runtime.totalMemory() < 512 * 1024 * 1024 * 8;
+}, false);
 let IN_CREATIVE = require(function() {
 	return PRELOADER.IN_CREATIVE;
 }, false);
 
-// Runtime changed values
+// Runtime gameplay changed values
 let gameTime = DEVELOP ? 0 : 0;
 let gameNight = DEVELOP ? 3 : 1;
 
@@ -185,5 +190,5 @@ const getModificationWorldLocation = function() {
  * @returns {null|Error} something
  */
 const getWorldExtractionError = function() {
-	return PRELOADER.getWorldExtractionError();
+	return PRELOADER.worldExtractionError;
 };

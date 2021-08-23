@@ -19,7 +19,7 @@ const Music = function(path) {
 		if (file.exists()) {
 			this.reset();
 			this.player.setDataSource(file);
-			this.player.prepare();
+			!LOW_MEMORY_MODE && this.player.prepare();
 		} else log("Music", "Cannot find " + file.getName());
 	};
 	
@@ -55,6 +55,7 @@ const Music = function(path) {
 	this.play = function() {
 		this.isPlaying() && this.restart();
 		this.__source && this.setSource(this.__source());
+		LOW_MEMORY_MODE && this.player.prepare();
 		this.player.start();
 	};
 	
@@ -65,7 +66,7 @@ const Music = function(path) {
 	this.stop = function() {
 		if (this.isPlaying()) {
 			this.player.stop();
-			this.player.prepare();
+			!LOW_MEMORY_MODE && this.player.prepare();
 		}
 	};
 	

@@ -41,14 +41,14 @@ DERenderer.prepare = function() {
 	if (DEVELOP && IN_CREATIVE) {
 		let arr = FileTools.GetListOfFiles(__dir__ + "models/array", "json");
 		for (let i = 0; i < arr.length; i++) {
-			MCSystem.setLoadingTip(NAME + ": Saving DERenderer: " + (i + 1) + "/" + arr.length);
+			MCSystem.setLoadingTip(NAME + ": Saving DERenderer " + (i + 1) + "/" + arr.length);
 			Files.deleteRecursive(__dir__ + "models/" + arr[i].getName().replace(".json", ".der"));
 			this.compile(arr[i].getName());
 		}
 	}
 	let list = FileTools.GetListOfFiles(__dir__ + "models", "der");
 	for (let i = 0; i < list.length; i++) {
-		MCSystem.setLoadingTip(NAME + ": Loading DERenderer: " + (i + 1) + "/" + list.length);
+		MCSystem.setLoadingTip(NAME + ": Loading DERenderer " + (i + 1) + "/" + list.length);
 		this.load(list[i].getName());
 	}
 };
