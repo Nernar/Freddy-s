@@ -40,3 +40,7 @@ const tryout = function(action, report, basic) {
 const isHorizon = tryout(function() {
 	return Packages.com.zhekasmirnov.innercore.api.Version.INNER_CORE_VERSION.level >= 10;
 }, new Function(), false);
+
+const isLegacy = tryout(function() {
+	return Packages.com.zhekasmirnov.apparatus.minecraft.version.MinecraftVersions.getCurrent().getCode() == 11;
+}, new Function(), isHorizon);

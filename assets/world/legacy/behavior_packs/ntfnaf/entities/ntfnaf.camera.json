@@ -1,0 +1,40 @@
+{
+	"format_version": "1.10.0",
+	"minecraft:entity": {
+		"description": {
+			"identifier": "ntfnaf:camera",
+			"is_spawnable": false,
+			"is_summonable": true,
+			"is_experimental": false
+		},
+		
+		"component_groups": {},
+		
+		"components": {
+			"minecraft:damage_sensor": {
+				"cause": "all",
+				"deals_damage": false
+			},
+			"minecraft:is_hidden_when_invisible": {},
+			"minecraft:fire_immune": true,
+			"minecraft:movement": {
+				"value": 0.0,
+				"max": 0.0
+			},
+			"minecraft:loot": {
+				"table": "loot_tables/empty.json"
+			},
+			"minecraft:collision_box": {
+				"width": 0.0,
+				"height": 0.0
+			},
+			"minecraft:health": {
+				"value": 10,
+				"max": 10,
+				"min": 10
+			},
+			"minecraft:persistent": {},
+			"minecraft:navigation.walk": {}
+		}
+	}
+}

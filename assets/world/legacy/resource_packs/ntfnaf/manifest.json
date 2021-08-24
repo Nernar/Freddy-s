@@ -1,0 +1,18 @@
+{
+	"format_version": 1,
+	"header": {
+		"name": "resourcePack.ntfnaf.name",
+		"description": "resourcePack.ntfnaf.description",
+		"uuid": "0575c62f-a4da-3b7f-9861-ffda2808861e",
+		"version": [0, 0, 1],
+		"min_engine_version": [1, 10, 0]
+	},
+	"modules": [
+		{
+			"type": "resources",
+			"description": "resourcePack.ntfnaf.description",
+			"uuid": "53644fac-a276-42e5-843f-a3c6f169a9ab",
+			"version": [0, 0, 1]
+		}
+	]
+}

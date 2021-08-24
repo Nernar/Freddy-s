@@ -18,20 +18,28 @@ const getModificationWorldLocation = function() {
 	return getWorldsStorageLocation() + getModificationWorldDirectory() + "/";
 };
 
+const getEnvironmentDependentLocation = function() {
+	return __dir__ + "assets/world/dependent.json";
+};
+
 let worldExtractionError = null;
 
 tryout(function() {
-	let location = getWorldsStorageLocation(),
-		outputPath = getModificationWorldDirectory(),
-		worldPath = isHorizon ? "world-horizon.zip" : "world.zip";
-	worldPath = new java.io.File(__dir__ + "assets", worldPath);
-	outputPath = new java.io.File(location, outputPath);
-	if (!IN_CREATIVE && outputPath.exists()) {
-		removeDirectory(outputPath);
+	let path = new java.io.File(getEnvironmentDependentLocation()),
+		environment = new Environment(path);
+	environment.prepareScriptable();
+	let scriptable = environment.getScriptable();
+	scriptable.query.innercore = !isHorizon;
+	scriptable.query.horizon = isHorizon;
+	scriptable.query.legacy = isLegacy;
+	let output = getModificationWorldLocation();
+	scriptable.query.directory = output;
+	output = new java.io.File(output);
+	if (!IN_CREATIVE && output.exists()) {
+		Files.deleteRecursive(output, true);
 	}
-	if (!outputPath.exists()) {
-		unpackZip(worldPath, location);
-	}
+	output.mkdirs();
+	environment.execute();
 }, function(e) {
 	worldExtractionError = e;
 });

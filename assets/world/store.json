@@ -1,0 +1,15 @@
+{
+	"type": "subsequence",
+	"sequence": [
+		{
+			"type": "explorer:pack",
+			"path": "`query.directory`",
+			"output": "world-test.zip"
+		},
+		{
+			"type": "explorer:remove",
+			"condition": "query.clean !== false",
+			"path": "`query.directory`"
+		}
+	]
+}

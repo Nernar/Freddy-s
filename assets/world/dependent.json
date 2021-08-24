@@ -1,0 +1,32 @@
+{
+	"type": "subsequence",
+	"sequence": [
+		{
+			"type": "explorer:append",
+			"output": "`query.directory`",
+			"sequence": [
+				"prototype/",
+				{
+					"path": "innercore/",
+					"condition": "query.innercore"
+				}
+			]
+		},
+		{
+			"type": "explorer:append",
+			"condition": "query.horizon",
+			"output": "`query.directory`",
+			"sequence": [
+				"horizon/",
+				{
+					"path": "legacy/",
+					"condition": "query.legacy"
+				},
+				{
+					"path": "release/",
+					"condition": "!query.legacy"
+				}
+			]
+		}
+	]
+}
