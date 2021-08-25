@@ -16,7 +16,7 @@ Dirs.STORAGE = Dirs.DATA + "files/.ntfnaf/";
 
 tryout(function() {
 	for (let item in Dirs) {
-		if (item != "EXTERNAL" && item != "DATA") {
+		if (item != "EXTERNAL" && item != "DATA" && item != "STORAGE") {
 			if (!Dirs[item].startsWith(Dirs.EXTERNAL)) {
 				Dirs[item] = String(Dirs.EXTERNAL + Dirs[item]);
 			}
