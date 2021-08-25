@@ -92,7 +92,7 @@ reportError.formCollectedValues = function() {
 };
 
 if (DEVELOP || MAY_DEBUG) {
-	IMPORT("Stacktrace:1");
+	IMPORT("Stacktrace:2");
 }
 
 /**
