@@ -44,7 +44,7 @@ let Transition = function(params) {
 	this.id = "transition" + count;
 };
 
-Transition.prototype.frames = new Array();
+Transition.prototype.frames = [];
 Transition.prototype.fps = 60;
 
 Transition.prototype.repointComparedVector = function(index, request) {
@@ -74,7 +74,7 @@ Transition.prototype.getFrameCount = function() {
 };
 
 Transition.prototype.clearFrames = function() {
-	this.frames = new Array();
+	this.frames = [];
 };
 
 Transition.prototype.getRelativePoint = function() {
@@ -212,7 +212,7 @@ Transition.prototype.withOnFinishListener = function(action) {
 
 Transition.instances = 0;
 
-Transition.Interpolator = new Object();
+Transition.Interpolator = {};
 Transition.Interpolator.LINEAR = 0;
 Transition.Interpolator.ACCELERATE = 1;
 Transition.Interpolator.DECELERATE = 2;

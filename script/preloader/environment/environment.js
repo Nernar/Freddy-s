@@ -51,8 +51,8 @@ Environment.prototype.prepareScriptable = function() {
 	this.context = javascript;
 	if (this.scriptable === undefined) {
 		let scriptable = javascript.initStandardObjects(null, false);
-		scriptable.variable = new Object();
-		scriptable.query = new Object();
+		scriptable.variable = {};
+		scriptable.query = {};
 		this.scriptable = scriptable;
 	}
 };

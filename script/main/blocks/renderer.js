@@ -1,7 +1,7 @@
 const DERenderer = {
-	loaded: new Object(),
-	rendered: new Object(),
-	translated: new Object()
+	loaded: {},
+	rendered: {},
+	translated: {}
 };
 
 /**
@@ -108,7 +108,7 @@ DERenderer.addTranslation = function(id, data, params) {
 	let language = Translation.getLanguage();
 	if (params[language]) {
 		typeof data == "undefined" && (data = 0);
-		if (!this.translated[id]) this.translated[id] = new Object();
+		if (!this.translated[id]) this.translated[id] = {};
 		this.translated[id][data] = params[language];
 	}
 };
@@ -123,7 +123,7 @@ DERenderer.addTranslation = function(id, data, params) {
  */
 DERenderer.translate = function(id, data) {
 	if (typeof id == "object" && Array.isArray(id[0])) {
-		let result = new Array();
+		let result = [];
 		id.forEach(function(e, i) {
 			result.push(DERenderer.translate(e));
 		});
@@ -149,12 +149,12 @@ DERenderer.setStaticRender = function(id, name, variation) {
 	variation === undefined && (variation = -1);
 	if (id < 0) return log("DERenderer", "Invalid identificator: " + id);
 	if (!this.loaded[name]) return log("DERenderer", "Not loaded: " + name);
-	if (!this.rendered[name]) this.rendered[name] = new Array();
+	if (!this.rendered[name]) this.rendered[name] = [];
 	let hasCycle = variation == -1;
 	hasCycle && (variation = this.rendered[name].length);
 	let renderer = this.loaded[name][variation];
 	if (!renderer) return;
-	this.rendered[name][variation] = new Array();
+	this.rendered[name][variation] = [];
 	for (let i = 0; i < renderer.length; i++) {
 		let boxes = renderer[i][1], collision = renderer[i][2];
 		let meta = this.getNextMeta(id, name, variation);

@@ -250,7 +250,7 @@ const Window = function(params) {
 	this.__init && this.__init(this);
 };
 
-Window.instances = new Array();
+Window.instances = [];
 
 /**
  * Dismisses everything active windows.

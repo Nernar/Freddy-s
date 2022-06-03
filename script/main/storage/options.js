@@ -2,7 +2,7 @@ const Preferences = {
 	unknown: {
 		night: String(gameNight)
 	},
-	loaded: new Object()
+	loaded: {}
 };
 
 Preferences.load = function() {

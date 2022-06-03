@@ -58,7 +58,7 @@ let addTranslation = function(prefix, who, translation) {
 	findCorePackage().api.runtime.other.NameTranslation.addSingleTranslation(prefix, who, translation);
 };
 
-addTranslation.messages = new Object();
+addTranslation.messages = {};
 
 // Codegen
 addTranslation("ru", "Duplicate parameter name \"%s\".", "Дублируется название параметра \"%s\".");
@@ -366,7 +366,7 @@ let getLoadedModList = function() {
 };
 
 let fetchScriptSources = function(mod) {
-	let founded = new Object(),
+	let founded = {},
 		buildConfig = mod.buildConfig,
 		sources = buildConfig.sourcesToCompile;
 	for (let i = 0; i < sources.size(); i++) {
@@ -398,8 +398,8 @@ let setupLoadedSources = function(mods) {
 	}
 };
 
-setupLoadedSources.mods = new Object();
-setupLoadedSources.sources = new Object();
+setupLoadedSources.mods = {};
+setupLoadedSources.sources = {};
 
 let getModName = function(id) {
 	if (setupLoadedSources.sources.hasOwnProperty(id)) {
@@ -412,7 +412,7 @@ let getModName = function(id) {
 };
 
 let findAvailabledMods = function(name) {
-	let array = new Array();
+	let array = [];
 	for (let element in setupLoadedSources.mods) {
 		let mod = getModName(element);
 		if (mod == name) {
@@ -427,9 +427,9 @@ let findAvailabledMods = function(name) {
 let findRelatedSources = function(name, file) {
 	let sources = findAvailabledMods(name);
 	if (sources.length == 0) {
-		return new Object();
+		return {};
 	}
-	let related = new Object();
+	let related = {};
 	for (let i = 0; i < sources.length; i++) {
 		let mod = sources[i],
 			source = setupLoadedSources.mods[mod];
@@ -437,12 +437,12 @@ let findRelatedSources = function(name, file) {
 			let name = source[path];
 			if (name == file) {
 				if (!related.hasOwnProperty(mod)) {
-					related[mod] = new Array();
+					related[mod] = [];
 				}
 				related[mod].unshift(path);
 			} else if (name.endsWith(file)) {
 				if (!related.hasOwnProperty(mod)) {
-					related[mod] = new Array();
+					related[mod] = [];
 				}
 				related[mod].push(path);
 			}
@@ -514,7 +514,7 @@ let resolveTraceSource = function(line) {
 		return null;
 	}
 	line = line.substring(at + 3);
-	let resolved = new Object();
+	let resolved = {};
 	resolved.trace = line;
 	if (line.endsWith(")")) {
 		let index = line.lastIndexOf("(");
@@ -553,7 +553,7 @@ let sliceMessageWithoutTrace = function(message, line) {
 
 let retraceToArray = function(trace) {
 	if (trace === null || trace === undefined) {
-		return new Array();
+		return [];
 	}
 	if (typeof trace != "string") {
 		trace = String(trace);
@@ -633,7 +633,7 @@ let reportTrace = function(error) {
 	}
 	if (reportTrace.isReporting) {
 		if (!Array.isArray(reportTrace.handled)) {
-			reportTrace.handled = new Array();
+			reportTrace.handled = [];
 		}
 		reportTrace.handled.push(error);
 		if (reportTrace.handled.length > 8) {
@@ -683,7 +683,7 @@ let reportTrace = function(error) {
 	});
 };
 
-reportTrace.handled = new Array();
+reportTrace.handled = [];
 
 reportTrace.postUpdate = function(dialog, error, date) {
 	let handler = new android.os.Handler(),
@@ -697,7 +697,7 @@ reportTrace.postUpdate = function(dialog, error, date) {
 		let sliced = sliceMessageWithoutTrace(message, retraced[0]),
 			localized = translateMessage(sliced);
 		update = new java.lang.Runnable(function() {
-			let additional = new Array();
+			let additional = [];
 			if (message != null) {
 				let entry = "<font color=\"#CCCC33\">";
 				if (localized != sliced) {
@@ -717,7 +717,7 @@ reportTrace.postUpdate = function(dialog, error, date) {
 				}
 				additional.push(retraced[i]);
 			}
-			let attached = new Array();
+			let attached = [];
 			if (additional.length > 0) {
 				attached.push(additional.join("<br/>"));
 			}
@@ -767,7 +767,7 @@ reportTrace.processFile = function(file, where) {
 	if (typeof where != "number" || where === NaN) {
 		return null;
 	}
-	let strokes = new Array();
+	let strokes = [];
 	if (!isValidFile(file)) {
 		return strokes;
 	}
@@ -815,14 +815,14 @@ reportTrace.processFile = function(file, where) {
 		return strokes;
 	}
 	// No exception found here
-	return new Array();
+	return [];
 };
 
 reportTrace.processSources = function(related, resolved, where) {
 	if (typeof where != "number" || where === NaN) {
 		return null;
 	}
-	let strokes = new Array();
+	let strokes = [];
 	if (related == null || typeof related != "object") {
 		return strokes;
 	}
@@ -848,7 +848,7 @@ reportTrace.processSources = function(related, resolved, where) {
 };
 
 reportTrace.processStack = function(resolved) {
-	let strokes = new Array(),
+	let strokes = [],
 		where = Number(resolved.line) + 1;
 	strokes.push((resolved.source ? resolved.source + " " + Translation.translate("from") + " " : new String()) + resolved.file +
 		(resolved.where ? " (" + resolved.where + ")" : new String()) + " " + Translation.translate("at line") + " " + where);
@@ -862,8 +862,8 @@ reportTrace.processStack = function(resolved) {
 };
 
 reportTrace.handleRequest = function(handler, update, trace) {
-	let requested = new Object();
-	requested.formatted = new Array();
+	let requested = {};
+	requested.formatted = [];
 	new java.lang.Thread(function() {
 		try {
 			for (let i = 0; i < trace.length; i++) {

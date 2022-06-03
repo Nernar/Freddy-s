@@ -7,7 +7,7 @@
 const Robot = function(params) {
 	let count = Robot.instances.push(this);
 	this.id = "robot" + count;
-	this.locations = new Object();
+	this.locations = {};
 	
 	this.addPoint = function(name, x, y) {};
 	this.buildPath = function(location) {};
@@ -16,7 +16,7 @@ const Robot = function(params) {
 	this.findNextPoint = function() {};
 };
 
-Robot.instances = new Array();
+Robot.instances = [];
 
 const Robots = {
 	property: {
@@ -632,7 +632,7 @@ Robots.execute = function() {
 };
 
 Robots.stop = function(name) {
-	let list = name ? [name] : new Array();
+	let list = name ? [name] : [];
 	if (!name) {
 		for (let robot in this.ai) {
 			let ai = this.ai[robot];
@@ -649,7 +649,7 @@ Robots.stop = function(name) {
 };
 
 Robots.continue = function(name) {
-	let list = name ? [name] : new Array();
+	let list = name ? [name] : [];
 	if (!name) {
 		for (let robot in this.ai) {
 			let ai = this.ai[robot];
@@ -665,7 +665,7 @@ Robots.continue = function(name) {
 };
 
 Robots.await = function(name) {
-	let list = name ? [name] : new Array();
+	let list = name ? [name] : [];
 	if (!name) {
 		for (let robot in this.ai) {
 			let ai = this.ai[robot];

@@ -20,7 +20,7 @@ Environment.Formation.prototype.getBuffer = function() {
 };
 
 Environment.Formation.prototype.parse = function(stroke) {
-	let formation = new Array(),
+	let formation = [],
 		bufferDefault = null,
 		bufferRuntime = null;
 	for (let i = 0; i < stroke.length; i++) {

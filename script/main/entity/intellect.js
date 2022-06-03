@@ -32,7 +32,7 @@ const EntityAILine = function(ent) {
 		rotateHead: true,
 		denyY: true
 	};
-	this.listeners = new Object();
+	this.listeners = {};
 	this.isFinished = function() {
 		return this.data.finished;
 	};

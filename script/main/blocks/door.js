@@ -6,7 +6,7 @@ doorRender.setPart("body", [{
 	coords: { x: 8, y: 24, z: -8 },
 	size: { x: 4, y: 32, z: 16 },
 	uv: { x: 0, y: 0 }
-}], new Object());
+}], {});
 
 let doorTick = [-1, -1];
 

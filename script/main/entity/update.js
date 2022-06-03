@@ -1,4 +1,4 @@
-let lastFixRotation = new Array();
+let lastFixRotation = [];
 
 /**
  * Simply moves entity by velocity to
@@ -10,7 +10,7 @@ const fixRotation = function(ent) {
 	}
 };
 
-let prevFixRotation = new Array();
+let prevFixRotation = [];
 Callback.addCallback("tick", function() {
 	while (prevFixRotation.length > 0) {
 		let ent = prevFixRotation.shift();

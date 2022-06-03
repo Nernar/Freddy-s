@@ -40,7 +40,7 @@ const Widget = function(params) {
 				this.type = "view";
 				this.view = new android.view.View(getContext());
 		}
-		this.type == "layout" && (this.childrens = new Array());
+		this.type == "layout" && (this.childrens = []);
 	};
 	
 	this.addChildren = function(widget) {
@@ -281,4 +281,4 @@ const Widget = function(params) {
 	}
 };
 
-Widget.instances = new Array();
+Widget.instances = [];

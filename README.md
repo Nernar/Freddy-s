@@ -1,7 +1,8 @@
 # Five Nights at Freddy's
 
-[![Beta 0.4.2.1](https://img.shields.io/badge/version-0.4.2-green.svg)]()
-[![Support](https://img.shields.io/github/repo-size/nernar/freddy-s)](https://vk.com/ntfnaf)
-[![License](https://img.shields.io/:license-apache-blue.svg)](http://www.apache.org/licenses/LICENSE-2.0.html)
+![Version](https://img.shields.io/badge/dynamic/json?label=version&query=version&url=https://raw.githubusercontent.com/nernar/freddy-s/master/mod.info&color=D19121&logoColor=white&logo=clockify&style=flat-square)
+![Lines of code](https://img.shields.io/tokei/lines/github/nernar/freddy-s?color=2727E3&logoColor=white&logo=sourcegraph&style=flat-square)
+![License](https://img.shields.io/github/license/nernar/freddy-s?color=D22128&logoColor=white&logo=apache&style=flat-square)
+[![Telegram](https://img.shields.io/badge/channel-gray?logo=telegram&style=flat-square)](https://t.me/ntInsideChat)
 
 Survive five nights with a night guard at a pizzeria, defending animatronics.

@@ -1,5 +1,5 @@
 const AssetFactory = {
-	loaded: new Object()
+	loaded: {}
 };
 
 AssetFactory.loadAsset = function(key, path) {
@@ -16,7 +16,7 @@ AssetFactory.getFile = function(key) {
 };
 
 const ImageFactory = {
-	loaded: new Object()
+	loaded: {}
 };
 
 ImageFactory.loadFromFile = function(key, path) {

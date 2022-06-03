@@ -4,7 +4,7 @@ Object.defineProperty(Environment, "Sequence", {
 		if (Array.isArray(json)) {
 			this.sequence = json;
 		} else if (sequence !== undefined) {
-			this.sequence = new Array();
+			this.sequence = [];
 			this.sequence.push(json);
 		}
 	},

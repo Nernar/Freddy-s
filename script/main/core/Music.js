@@ -150,7 +150,7 @@ const Music = function(path) {
 	path && this.setSource(path);
 };
 
-Music.instances = new Array();
+Music.instances = [];
 Music.get = function(id) {
 	Music.instances.forEach(function(s) {
 		if (s.id == id) return s;

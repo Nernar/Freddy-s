@@ -1,9 +1,9 @@
-const Office = new Object();
+const Office = {};
 
 /**
  * @ignore
  */
-Office.active = new Array();
+Office.active = [];
 
 /**
  * Detects if player in office determines

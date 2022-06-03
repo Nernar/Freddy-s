@@ -77,7 +77,7 @@ Environment.Task.prototype.parseJson = function(json) {
 Environment.Task.registerTask = function(name, task) {
 	if (this.registered === undefined) {
 		Object.defineProperty(this, "registered", {
-			value: new Object(),
+			value: {},
 			enumerable: true,
 			writable: false
 		});

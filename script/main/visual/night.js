@@ -46,7 +46,7 @@ const NightScene = parseAction({
 		onTick: function(scope, currently) {
 			if (currently == 0) {
 				gameTime = 0;
-				Office.active = new Array();
+				Office.active = [];
 				Office.procent = 99.9;
 				if (!IN_CREATIVE) {
 					Office.update();
