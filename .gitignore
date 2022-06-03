@@ -55,7 +55,6 @@ _gsdata_/
 
 # Local development
 /assets/errors.log
-/assets/.game
 /models/divided/
 /models/joined/
 /models/array/
