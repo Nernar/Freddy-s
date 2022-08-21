@@ -20,15 +20,19 @@ const handleGoldenFreddy = function() {
 };
 
 const saveGame = function() {
-	tryout(function() {
+	try {
 		Preferences.save("night", gameNight);
-	});
+	} catch (e) {
+		reportError(e);
+	}
 };
 
 const restoreGame = function() {
-	tryout(function() {
+	try {
 		gameNight = parseInt(Preferences.get("night"));
-	});
+	} catch (e) {
+		reportError(e);
+	}
 };
 
 /**

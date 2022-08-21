@@ -7,9 +7,9 @@ const showHint = function(hint, color) {
 	handle(function() {
 		log("Hint", hint);
 		let text = new android.widget.TextView(getContext());
-		text.setTextColor(color !== undefined ? color : Interface.Color.WHITE);
+		text.setTextColor(color !== undefined ? color : android.graphics.Color.WHITE);
 		typeof hint != "undefined" && text.setText(String(hint));
-		text.setTextSize(Interface.getFontSize(22));
+		text.setTextSize(getFontSize(22));
 		text.setTypeface(getTypeface());
 		let toast = new android.widget.Toast(getContext());
 		toast.setView(text);
@@ -17,14 +17,16 @@ const showHint = function(hint, color) {
 	});
 };
 
-tryout(function() {
+try {
 	MCSystem.setLoadingTip(NAME + ": Loading Resources");
 	AssetFactory.loadAsset("minecraftFont", "Minecraft 1.1.ttf");
 	AssetFactory.loadAsset("headerFont", "PCPaintSmallBold.ttf");
 	DEVELOP && Development.modelPlacer && Files.createFile(Dirs.TODO, "coords.js");
-});
+} catch (e) {
+	reportError(e);
+}
 
-tryout(function() {
+try {
 	MCSystem.setLoadingTip(NAME + ": Loading UI Resources");
 	ImageFactory.loadFromFile("cameraActived", "tablet/actived.png").compress(1, 4);
 	ImageFactory.loadFromFile("cameraButton", "tablet/button.png").compress(0.6, 3);
@@ -49,9 +51,11 @@ tryout(function() {
 	}
 	ImageFactory.loadFromFile("gameOver", "game/failed.jpg").compress(0.4, 1.2);
 	ImageFactory.loadFromFile("creepyEnd", "game/creepyend.jpg").compress(0.4, 1.2);
-});
+} catch (e) {
+	reportError(e);
+}
 
-tryout(function() {
+try {
 	MCSystem.setLoadingTip(NAME + ": Preparing Sounds");
 	officeDangerSound = new Music("events/scare.mp3");
 	officeDoorSound = new Music("office/bible.mp3");
@@ -139,11 +143,15 @@ tryout(function() {
 	phoneGuySound.setBlock(45, 6, 11, 10);
 	
 	DEVELOP && screamSound.setVolume(5);
-});
+} catch (e) {
+	reportError(e);
+}
 
-tryout(function() {
+try {
 	Preferences.load();
-});
+} catch (e) {
+	reportError(e);
+}
 
 Callback.addCallback("PostLoaded", function() {
 	handle(function() {
@@ -162,19 +170,15 @@ Callback.addCallback("PostLoaded", function() {
 			window.addFlags(android.view.WindowManager.LayoutParams.FLAG_LAYOUT_NO_LIMITS);
 		}
 	});
-	tryout(function() {
-		tryout(function() {
-			reportError.setTitle(translate(NAME) + " " + translate(VERSION));
-			reportError.setInfoMessage(translate("Something went wrong. If gameplay process are affected, try re-entering the world. Report about cause on modification page or linked group."));
-		});
+	try {
 		if (!DEVELOP) {
 			restoreGame();
 		}
-		tryout(function() {
-			let error = getWorldExtractionError();
-			if (error !== undefined && error !== null) {
-				retraceOrReport(error);
-			}
-		});
-	});
+		let error = getWorldExtractionError();
+		if (error !== undefined && error !== null) {
+			retraceOrReport(error);
+		}
+	} catch (e) {
+		reportError(e);
+	}
 });

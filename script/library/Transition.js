@@ -1,6 +1,17 @@
 /*
+BUILD INFO:
+  dir: Transition
+  target: Transition.js
+  files: 2
+*/
 
-   Copyright 2018-2021 Nernar (github.com/nernar)
+
+
+// file: header.js
+
+/*
+
+   Copyright 2018-2022 Nernar (github.com/nernar)
 
    Licensed under the Apache License, Version 2.0 (the "License");
    you may not use this file except in compliance with the License.
@@ -18,31 +29,38 @@
 
 LIBRARY({
 	name: "Transition",
-	version: 6,
+	version: 1,
 	shared: true,
 	api: "AdaptedScript",
-	dependencies: ["Retention:5"]
+	dependencies: ["Retention:1"]
 });
 
-IMPORT("Retention:5");
+IMPORT("Retention:1");
+
+
+
+
+// file: integration.js
 
 /**
  * Used to create transitions: special
- * animations moving creatures in the game.
+ * animations moving creatures in game.
  * @param {Object} params frames array
  * @param {number} params entity
  */
-let Transition = function(params) {
-	if (params) {
-		if (typeof params == "object") {
-			this.withFrames(params);
-		} else if (typeof params == "number") {
-			this.withEntity(params);
-		} else MCSystem.throwException("Transition can't be created with invalid type of params");
-	}
-	let count = Transition.instances++;
-	this.id = "transition" + count;
-};
+Transition = (function() {
+	let identifier = 0;
+	return function(params) {
+		if (params) {
+			if (typeof params == "object") {
+				this.withFrames(params);
+			} else if (typeof params == "number") {
+				this.withEntity(params);
+			} else MCSystem.throwException("Transition: Transition(object | number) allowed constructor");
+		}
+		this.id = "transition" + (identifier++);
+	};
+})();
 
 Transition.prototype.frames = [];
 Transition.prototype.fps = 60;
@@ -101,11 +119,11 @@ Transition.prototype.setFramesPerSecond = function(limit) {
 
 Transition.prototype.start = function() {
 	if (!this.entity) {
-		Logger.Log("Transition[" + this.id + "] entity isn't defined", "ERROR");
+		Logger.Log("Transition: Transition (id=" + this.id + ") withEntity(entity) must be called before start()", "ERROR");
 		return;
 	}
 	if (!this.starting) {
-		Logger.Log("Transition[" + this.id + "] start point isn't setted up", "ERROR");
+		Logger.Log("Transition: Transition (id=" + this.id + ") withFrom(x, y, z, yaw, pitch) must be called before start()", "ERROR");
 		return;
 	}
 	if (Transition.isTransitioning()) {
@@ -114,7 +132,7 @@ Transition.prototype.start = function() {
 	if (this.thread == undefined) {
 		let scope = Transition.currently = this;
 		this.thread = handleThread(function() {
-			tryout(function() {
+			try {
 				let point = scope.point = scope.starting.slice();
 				scope.__start && scope.__start(scope);
 				Entity.setImmobile(scope.entity, true);
@@ -126,7 +144,7 @@ Transition.prototype.start = function() {
 						Entity.setRotation(scope.entity, point[3], point[4]);
 						scope.__frame && scope.__frame(scope, index, request);
 						if (scope.thread) {
-							Interface.sleepMilliseconds(frame[6]);
+							java.lang.Thread.sleep(frame[6]);
 						} else {
 							index = scope.frames.length;
 							request = frame[5];
@@ -137,14 +155,14 @@ Transition.prototype.start = function() {
 					}
 				}
 				Entity.setImmobile(scope.entity, false);
-			}, function(e) {
+			} catch (e) {
 				if (e.message == "java.lang.InterruptedException: null") {
 					return;
 				} else if (e.message == "Cannot call method \"isInterrupted\" of undefined") {
 					return;
 				}
 				reportError(e);
-			});
+			}
 			delete Transition.currently;
 			delete scope.thread;
 			scope.__finish && scope.__finish(scope);
@@ -184,33 +202,19 @@ Transition.prototype.withEntity = function(entity) {
 };
 
 Transition.prototype.withOnStartListener = function(action) {
-	this.__start = function(scope) {
-		tryout(function() {
-			action && action(scope);
-		});
-	};
+	this.__start = action;
 	return this;
 };
 
 Transition.prototype.withOnFrameListener = function(action) {
-	this.__frame = function(scope, index, request) {
-		tryout(function() {
-			action && action(scope, index, request);
-		});
-	};
+	this.__frame = action;
 	return this;
 };
 
 Transition.prototype.withOnFinishListener = function(action) {
-	this.__finish = function(scope) {
-		tryout(function() {
-			action && action(scope);
-		});
-	};
+	this.__finish = action;
 	return this;
 };
-
-Transition.instances = 0;
 
 Transition.Interpolator = {};
 Transition.Interpolator.LINEAR = 0;
@@ -251,10 +255,14 @@ Transition.isTransitioning = function() {
 	return !!this.getCurrently();
 };
 
-Callback.addCallback("LevelLeft", function() {
+Callback.addCallback("LevelPreLeft", function() {
 	if (Transition.isTransitioning()) {
 		Transition.getCurrently().stop();
 	}
 });
 
 EXPORT("Transition", Transition);
+
+
+
+

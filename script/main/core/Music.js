@@ -29,9 +29,12 @@ const Music = function(path) {
 	
 	this.randomizeSource = function(action) {
 		this.__source = function() {
-			return tryout.call(this, function() {
+			try {
 				if (action) return action.call(this);
-			});
+			} catch (e) {
+				reportError(e);
+			}
+			return null;
 		};
 	};
 	
@@ -121,9 +124,17 @@ const Music = function(path) {
 	
 	this.updateVolume = function(action) {
 		this.__volume = function() {
-			return require.call(this, function() {
-				if (action) return action.call(this);
-			}, this.volume);
+			try {
+				if (action) {
+					let value = action.call(this);
+					if (value !== undefined) {
+						return value;
+					}
+				}
+			} catch (e) {
+				reportError(e);
+			}
+			return this.volume;
 		};
 	};
 	
@@ -137,9 +148,11 @@ const Music = function(path) {
 	
 	this.setOnCompletionListener = function(action) {
 		this.player.setOnCompletionListener(function() {
-			tryout(function() {
+			try {
 				action && action();
-			});
+			} catch (e) {
+				reportError(e);
+			}
 		}); 
 	};
 	
@@ -213,7 +226,7 @@ Music.Source.updateVolume = function() {
 			pa.yaw = pa.yaw * s.receiverVolume + ca.yaw * ov;
 		}
 		
-		let pb = require(function() {
+		let pb = (function() {
 			if (s.source == this.BLOCK) {
 				return {
 					x: s.position.x - pp.x,
@@ -233,7 +246,7 @@ Music.Source.updateVolume = function() {
 					delete s.needResetSource;
 				}
 			}
-		}, null);
+		})();
 		if (!pb) continue;
 		
 		let sqrt = Math.sqrt(pb.x * pb.x + pb.y * pb.y + pb.z * pb.z);
@@ -271,7 +284,9 @@ Music.Source.updateVolume = function() {
 };
 
 Callback.addCallback("tick", function() {
-	tryout(function() {
+	try {
 		Music.Source.updateVolume();
-	});
+	} catch (e) {
+		Logger.Log("Freddy's: Music::tick: " + e, "INFO");
+	}
 });

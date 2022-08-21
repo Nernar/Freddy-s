@@ -9,6 +9,7 @@ storage/protect.js
 debug/debug.js
 
 parser/action.js
+parser/shortcut.js
 
 core/Music.js
 core/Widget.js

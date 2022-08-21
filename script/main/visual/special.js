@@ -118,9 +118,11 @@ OverlayWindow.translate = function(time, post) {
 		animate = android.view.animation.AlphaAnimation(0, 1);
 	animate.setDuration(time || 1500);
 	handle(function() {
-		tryout(function() {
+		try {
 			post && post();
-		});
+		} catch (e) {
+			reportError(e);
+		}
 		let animate = android.view.animation.AlphaAnimation(1, 0);
 		animate.setDuration(time || 1500);
 		handle(function() {

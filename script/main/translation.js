@@ -1,5 +1,5 @@
 Translation.addTranslation("Freddy's", {
-	ru: DEVELOP ? "Фреддик" : "Freddy's"
+	ru: DEVELOP ? "Федор" : "Freddy's"
 });
 Translation.addTranslation("Beta 0.4.2.1", {
 	ru: "Бета 0.4.2.1"

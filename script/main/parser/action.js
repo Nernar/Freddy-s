@@ -15,11 +15,13 @@ const parseAction = function(who, preserveUnknownProperties) {
 		switch (property) {
 			case "hooks": case "actions": case "listeners":
 				if (typeof someone != "object" || someone == null) {
-					MCSystem.throwException("parseAction: " + property + " must be object");
+					MCSystem.throwException("Freddy's: parseAction: " + property + " must be object");
 				}
-				someone.onInit && tryout(function() {
-					someone.onInit(instance);
-				});
+				try {
+					someone.onInit && someone.onInit(instance);
+				} catch (e) {
+					reportError(e);
+				}
 				someone.onRun && instance.setOnRunListener(someone.onRun);
 				someone.onExecute && instance.setOnCreateListener(someone.onExecute);
 				someone.onTick && instance.setOnTickListener(someone.onTick);

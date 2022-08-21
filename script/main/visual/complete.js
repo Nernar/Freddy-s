@@ -25,26 +25,26 @@ const WinWindow = new Window({
 			type: "linear",
 			params: {
 				width: "match",
-				height: Interface.Display.HEIGHT / 2 - 52
+				height: getDisplayPercentHeight(50) - 52
 			},
 			background: "black"
 		}, {
 			type: "linear",
 			params: {
 				width: "match",
-				height: Interface.Display.HEIGHT / 2 - 53
+				height: getDisplayPercentHeight(50) - 53
 			},
-			y: Interface.Display.HEIGHT / 2 + 53,
+			y: getDisplayPercentHeight(50) + 53,
 			background: "black"
 		}]
 	},
 	hooks: {
 		onShow: function(scope) {
 			let slicing = scope.findWidgetById("slicing").view,
-				animate = android.view.animation.TranslateAnimation(0, 0, 0, -Interface.getY(106) - Interface.getFontMargin() * 2);
+				animate = android.view.animation.TranslateAnimation(0, 0, 0, -getY(106) - getFontMargin() * 2);
 			animate.setAnimationListener({
 				onAnimationEnd: function() {
-					slicing.setY(slicing.getY() - Interface.getY(106) - Interface.getFontMargin() * 2);
+					slicing.setY(slicing.getY() - getY(106) - getFontMargin() * 2);
 					completeKidsSound.play();
 				}
 			});
@@ -53,7 +53,7 @@ const WinWindow = new Window({
 		},
 		onHide: function(scope) {
 			let slicing = scope.findWidgetById("slicing").view;
-			slicing.setY(slicing.getY() + Interface.getY(106) + Interface.getFontMargin() * 2);
+			slicing.setY(slicing.getY() + getY(106) + getFontMargin() * 2);
 		}
 	}
 });

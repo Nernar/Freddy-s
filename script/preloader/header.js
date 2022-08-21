@@ -1,6 +1,6 @@
 /*
 
-   Copyright 2016-2021 Nernar (github.com/nernar)
+   Copyright 2016-2022 Nernar (github.com/nernar)
    
    Licensed under the Apache License, Version 2.0 (the "License");
    you may not use this file except in compliance with the License.
@@ -18,29 +18,26 @@
 
 const IN_CREATIVE = false;
 
-const tryout = function(action, report, basic) {
-	try {
-		if (typeof action == "function") {
-			return action.call(this);
-		}
-	} catch (e) {
-		if (typeof report == "function") {
-			let result = report.call(this, e);
-			if (result !== undefined) return result;
-		} else {
-			reportError(e);
-			if (report !== undefined) {
-				return report;
-			}
-		}
+const getWorldsStorageLocation = function() {
+	if (!isHorizon) {
+		return android.os.Environment.getExternalStorageDirectory()
+			+ "/games/com.mojang/innercoreWorlds/";
 	}
-	return basic;
+	return __packdir__ + "worlds/";
 };
 
-const isHorizon = tryout(function() {
-	return Packages.com.zhekasmirnov.innercore.api.Version.INNER_CORE_VERSION.level >= 10;
-}, new Function(), false);
+const getModificationWorldDirectory = function() {
+	return "Freddy Fazbear's";
+};
 
-const isLegacy = tryout(function() {
-	return Packages.com.zhekasmirnov.apparatus.minecraft.version.MinecraftVersions.getCurrent().getCode() == 11;
-}, new Function(), isHorizon);
+const getModificationWorldName = function() {
+	return "§l" + getModificationWorldDirectory();
+};
+
+const getModificationWorldLocation = function() {
+	return getWorldsStorageLocation() + getModificationWorldDirectory() + "/";
+};
+
+const getEnvironmentDependentLocation = function() {
+	return __dir__ + "assets/world/dependent.json";
+};

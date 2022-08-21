@@ -28,15 +28,16 @@ const DESCRIPTION = __mod__.getInfoProperty("description");
 
 MCSystem.setLoadingTip(NAME + ": Initialization Script");
 
-IMPORT("Retention:5");
+IMPORT("Files");
+IMPORT("Retention");
 
 /**
  * Based on 1280px screen width.
  * @param {number} x coordinate
  * @returns {number} dimension
  */
-Interface.getX = function(x) {
-	return x > 0 ? Math.round(this.Display.WIDTH / (1280 / x)) : x;
+getX = function(x) {
+	return x > 0 ? Math.round(getDisplayWidth() / (1280 / x)) : x;
 };
 
 /**
@@ -44,55 +45,54 @@ Interface.getX = function(x) {
  * @param {number} y coordinate
  * @returns {number} dimension
  */
-Interface.getY = function(y) {
-	return y > 0 ? Math.round(this.Display.HEIGHT / (720 / y)) : y;
+getY = function(y) {
+	return y > 0 ? Math.round(getDisplayHeight() / (720 / y)) : y;
+};
+
+/**
+ * @returns {number} dimension
+ */
+getFontSize = function(size) {
+	return Math.round(getX(size) / getDisplayDensity());
+};
+
+/**
+ * @returns {number} dimension
+ */
+getFontMargin = function() {
+	return getY(7);
 };
 
 /**
  * Modification preloader scope.
  */
-const PRELOADER = require(function() {
+const PRELOADER = (function() {
 	let preloader = __mod__.compiledPreloaderScripts.get(0);
 	if (!preloader.isRunning()) {
 		__mod__.RunPreloaderScripts();
 	}
 	return preloader.getScope();
-}, null);
+})();
 
 // Development and various constants
 let DEVELOP = true;
 let MAY_DEBUG = false;
 let DEMO = true;
-let LOW_MEMORY_MODE = require(function() {
+let LOW_MEMORY_MODE = (function() {
 	let runtime = java.lang.Runtime.getRuntime();
 	return runtime.maxMemory() < 2048 * 1024 * 1024 * 8
 		|| runtime.totalMemory() < 512 * 1024 * 1024 * 8;
-}, false);
-let IN_CREATIVE = require(function() {
-	return PRELOADER.IN_CREATIVE;
-}, false);
+})();
+let IN_CREATIVE = (function() {
+	return PRELOADER.IN_CREATIVE || false;
+})();
 
 // Runtime gameplay changed values
 let gameTime = DEVELOP ? 0 : 0;
 let gameNight = DEVELOP ? 3 : 1;
 
-reportError._formCollectedValues = reportError.formCollectedValues;
-
-reportError.formCollectedValues = function() {
-	let runtime = this._formCollectedValues.apply(this, arguments);
-	runtime.push("inCreative = " + IN_CREATIVE + ";");
-	runtime.push("isHorizon = " + isHorizon + ";");
-	tryout(function() {
-		isCorrectWorld != null && runtime.push("isCorrectWorld = " + isCorrectWorld + ";");
-		runtime.push("acquiredLogic = " + Development.logicEnabled + ";");
-		runtime.push("mayPlaceRenderer = " + Development.modelPlacer + ";");
-		runtime.push("transparentButton = " + Development.showButton + ";");
-	}, new Function());
-	return runtime;
-};
-
 if (DEVELOP || MAY_DEBUG) {
-	IMPORT("Stacktrace:2");
+	IMPORT("Stacktrace");
 }
 
 /**
@@ -109,8 +109,8 @@ const retraceOrReport = function(error) {
 	}
 };
 
-IMPORT("Transition:6");
-IMPORT("Action:4");
+IMPORT("Transition");
+IMPORT("Action");
 
 Action.prototype.__run = Action.prototype.run;
 

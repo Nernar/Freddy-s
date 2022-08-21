@@ -184,7 +184,7 @@ const Cameras = {
  * if needed for currently moment.
  */
 Cameras.update = function() {
-	tryout.call(this, function() {
+	try {
 		for (let i = 0; i < this.cameras.length; i++) {
 			let camera = this.cameras[i];
 			if (camera && !camera.entity) {
@@ -197,7 +197,9 @@ Cameras.update = function() {
 		}
 		this.deviationAngle = this.deviationTick = 0;
 		this.isBackDeviation = false;
-	});
+	} catch (e) {
+		reportError(e);
+	}
 };
 
 /**

@@ -148,7 +148,7 @@ Office.checkUse = function(x, y, z) {
 				if (this.leftDanger) {
 					delete this.leftDanger;
 					officeDangerSound.play();
-					Interface.vibrate(100);
+					vibrate(100);
 					log("Office", "Player dangered at left door");
 				}
 				Office.lightning(0);
@@ -167,7 +167,7 @@ Office.checkUse = function(x, y, z) {
 				if (this.rightDanger) {
 					delete this.rightDanger;
 					officeDangerSound.play();
-					Interface.vibrate(100);
+					vibrate(100);
 					log("Office", "Player dangered at right door");
 				}
 				Office.lightning(1);

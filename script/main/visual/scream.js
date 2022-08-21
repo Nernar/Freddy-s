@@ -28,7 +28,7 @@ const ScreamScene = parseAction({
 						!OverlayWindow.isShowed && acquire(function() {
 							OverlayWindow.show();
 						});
-						Interface.vibrate(3000);
+						vibrate(3000);
 						GameScene.finish();
 						Music.destroy();
 						screamSound.play();

@@ -197,7 +197,7 @@ const TabletWindow = new Window({
 			let animation = new android.graphics.drawable.AnimationDrawable(),
 				drawable = new android.graphics.drawable.BitmapDrawable(ImageFactory.getBitmap("cameraActived"));
 			animation.addFrame(drawable, 2000);
-			animation.addFrame(Interface.getEmptyDrawable(), 2000);
+			animation.addFrame(new android.graphics.drawable.ColorDrawable(android.graphics.Color.TRANSPARENT), 2000);
 			animation.setOneShot(false);
 			scope.findWidgetById("circle").setResource(animation);
 			scope.circleAnimation = animation;

@@ -1,4 +1,4 @@
-tryout(function() {
+try {
 	MCSystem.setLoadingTip(NAME + ": Registering Blocks");
 	DEVELOP && convertModels();
 	DERenderer.prepare();
@@ -257,4 +257,6 @@ tryout(function() {
 		{ name: "Hall Poster", inCreative: IN_CREATIVE }
 	]);
 	DERenderer.setStaticRender(BlockID.hallPoster, "hallPoster");
-});
+} catch (e) {
+	reportError(e);
+}

@@ -4,7 +4,7 @@
  * Or just startup office ambience at all.
  */
 const startNight = function() {
-	tryout(function() {
+	try {
 		TabletWindow.updateContainer();
 		Entity.setPosition(Player.get(), 47.5, 7, 6.5);
 		Entity.setLookAngle(Player.get(), 0, 0);
@@ -84,7 +84,9 @@ const startNight = function() {
 			}
 			GameScene.run();
 		} else NightWindow.hide();
-	});
+	} catch (e) {
+		reportError(e);
+	}
 };
 
 /**
@@ -93,10 +95,12 @@ const startNight = function() {
  * when world is unloading at all.
  */
 const releaseAll = function() {
-	tryout(function() {
+	try {
 		Window.dismiss();
 		Music.destroy();
-	});
+	} catch (e) {
+		reportError(e);
+	}
 };
 
 /**
@@ -105,7 +109,7 @@ const releaseAll = function() {
  * Must be called when world is loading at all.
  */
 const buildAll = function() {
-	tryout(function() {
+	try {
 		TabletWindow.create();
 		TabletButton.create();
 		TabletSwitch.create();
@@ -126,7 +130,9 @@ const buildAll = function() {
 			removeButton();
 			createButton();
 		}
-	});
+	} catch (e) {
+		reportError(e);
+	}
 };
 
 let isCorrectWorld = null;

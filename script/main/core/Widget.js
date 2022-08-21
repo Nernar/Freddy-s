@@ -153,12 +153,12 @@ const Widget = function(params) {
 	
 	this.setOrientation = function(orientate) {
 		if (typeof orientate == "number") this.view.setOrientation(orientate);
-		else this.view.setOrientation(Interface.Orientate[orientate.toUpperCase()]);
+		else this.view.setOrientation(android.widget.LinearLayout[orientate.toUpperCase()]);
 	};
 	
 	this.setGravity = function(gravity) {
 		if (typeof gravity == "number") this.view.setGravity(gravity);
-		else this.view.setGravity(Interface.Gravity.parse(gravity.toUpperCase()));
+		else this.view.setGravity(ViewShortcut.parseGravity(gravity));
 	};
 	
 	this.setText = function(text, format) {
@@ -172,14 +172,14 @@ const Widget = function(params) {
 	};
 	
 	this.setTextSize = function(size) {
-		this.view.setTextSize(Interface.getFontSize(size));
+		this.view.setTextSize(getFontSize(size));
 	};
 	
 	this.setTextColor = function(color) {
 		if (typeof color == "number") this.view.setTextColor(color);
 		else if (typeof color == "string") {
-			if (color.startsWith("#")) this.view.setTextColor(Interface.Color.parse(color));
-			else this.view.setTextColor(Interface.Color[color.toUpperCase()]);
+			if (color.startsWith("#")) this.view.setTextColor(android.graphics.Color.parseColor(color));
+			else this.view.setTextColor(android.graphics.Color[color.toUpperCase()]);
 		}
 	};
 	
@@ -196,15 +196,17 @@ const Widget = function(params) {
 	
 	this.setScaleType = function(scale) {
 		if (typeof scale == "object") this.view.setScaleType(scale);
-		else this.view.setScaleType(Interface.Scale[scale.toUpperCase()]);
+		else this.view.setScaleType(android.widget.ImageView.ScaleType[scale.toUpperCase()]);
 	};
 	
 	this.setOnClickListener = function(action) {
 		let scope = this;
 		this.view.setOnClickListener(function() {
-			tryout(function() {
+			try {
 				action && action(scope);
-			});
+			} catch (e) {
+				reportError(e);
+			}
 		});
 	};
 	
@@ -226,9 +228,11 @@ const Widget = function(params) {
 	};
 	
 	this.setParams = function(width, height) {
-		typeof width == "string" && (width = Interface.Display[width.toUpperCase()]);
-		typeof height == "string" && (height = Interface.Display[height.toUpperCase()]);
-		this.view.setLayoutParams(Interface.getLayoutParams(width, height));
+		typeof width == "string" && (width = ViewShortcut.LayoutParams[width.toUpperCase()]);
+		typeof height == "string" && (height = ViewShortcut.LayoutParams[height.toUpperCase()]);
+		typeof width != "number" && (width = ViewShortcut.LayoutParams.WRAP);
+		typeof height != "number" && (height = ViewShortcut.LayoutParams.WRAP);
+		this.view.setLayoutParams(new android.view.ViewGroup.LayoutParams(width, height));
 	};
 	
 	this.setSizes = function(width, height) {
@@ -237,11 +241,11 @@ const Widget = function(params) {
 	};
 	
 	this.setWidth = function(width) {
-		typeof width == "number" && (this.view.setWidth(Interface.getX(width)));
+		typeof width == "number" && (this.view.setWidth(getX(width)));
 	};
 	
 	this.setHeight = function(height) {
-		typeof height == "number" && (this.view.setHeight(Interface.getY(height)));
+		typeof height == "number" && (this.view.setHeight(getY(height)));
 	};
 	
 	this.setPosition = function(x, y) {
@@ -250,25 +254,34 @@ const Widget = function(params) {
 	};
 	
 	this.setX = function(x) {
-		typeof x == "number" && (this.view.setX(Interface.getX(x)));
+		typeof x == "number" && (this.view.setX(getX(x)));
 	};
 	
 	this.setY = function(y) {
-		typeof y == "number" && (this.view.setY(Interface.getY(y)));
+		typeof y == "number" && (this.view.setY(getY(y)));
 	};
 	
 	this.setBackground = function(background) {
 		if (typeof background == "number") this.view.setBackgroundColor(background);
 		else if (typeof background == "string") {
-			if (background.startsWith("#")) this.view.setBackgroundColor(Interface.Color.parse(background));
-			else if (Interface.Color[background.toUpperCase()] !== undefined) this.view.setBackgroundColor(Interface.Color[background.toUpperCase()]);
-			else this.view.setBackgroundDrawable(new android.graphics.drawable.BitmapDrawable(ImageFactory.getBitmap(background)));
+			if (background.startsWith("#")) this.view.setBackgroundColor(android.graphics.Color.parseColor(background));
+			else {
+				try {
+					if (android.graphics.Color[background.toUpperCase()] !== undefined) {
+						this.view.setBackgroundColor(android.graphics.Color[background.toUpperCase()]);
+						return;
+					}
+				} catch (e) {
+					// It's doesn't matter
+				}
+				this.view.setBackgroundDrawable(new android.graphics.drawable.BitmapDrawable(ImageFactory.getBitmap(background)));
+			}
 		} else this.view.setBackgroundDrawable(background);
 	};
 	
 	this.setVisibility = function(visibility) {
 		if (typeof visibility == "number") this.view.setVisibility(visibility);
-		else this.view.setVisibility(Interface.Visibility[visibility.toUpperCase()]);
+		else this.view.setVisibility(android.view.View[visibility.toUpperCase()]);
 	};
 	
 	this.setId = function(id) {

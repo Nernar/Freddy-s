@@ -6,7 +6,7 @@
  */
 const Window = function(params) {
 	let count = Window.instances.push(this);
-	this.width = this.height = Interface.Display.MATCH;
+	this.width = this.height = android.view.ViewGroup.LayoutParams.MATCH_PARENT;
 	this.x = this.y = this.gravity = 0;
 	this.id = "window" + count;
 	this.isTouchable = true;
@@ -14,9 +14,11 @@ const Window = function(params) {
 	
 	this.setOnInitializationListener = function(action) {
 		this.__init = function(scope) {
-			action && tryout(function() {
-				action(scope);
-			});
+			try {
+				action && action(scope);
+			} catch (e) {
+				reportError(e);
+			}
 		};
 	};
 	
@@ -97,9 +99,11 @@ const Window = function(params) {
 	
 	this.setOnCreateListener = function(action) {
 		this.__create = function(scope) {
-			action && tryout(function() {
-				action(scope);
-			});
+			try {
+				action && action(scope);
+			} catch (e) {
+				reportError(e);
+			}
 		};
 	};
 	
@@ -113,14 +117,16 @@ const Window = function(params) {
 		this.window = new android.widget.PopupWindow(this.widget.view, this.width, this.height);
 		isHorizon && this.window.setAttachedInDecor(isHorizon);
 		this.window.setTouchable(false);
-		this.window.showAtLocation(Interface.getDecorView(), this.gravity, this.x, this.y);
+		this.window.showAtLocation(getDecorView(), this.gravity, this.x, this.y);
 	};
 	
 	this.setOnRemoveListener = function(action) {
 		this.__remove = function(scope) {
-			action && tryout(function() {
-				action(scope);
-			});
+			try {
+				action && action(scope);
+			} catch (e) {
+				reportError(e);
+			}
 		};
 	};
 	
@@ -132,20 +138,20 @@ const Window = function(params) {
 	};
 	
 	this.setWidth = function(width) {
-		typeof width != "undefined" && (this.width = Interface.getX(width));
+		typeof width != "undefined" && (this.width = getX(width));
 		this.window && this.update();
 	};
 	
 	this.setHeight = function(height) {
-		typeof height != "undefined" && (this.height = Interface.getY(height));
+		typeof height != "undefined" && (this.height = getY(height));
 		this.window && this.update();
 	};
 	
 	this.setParams = function(width, height) {
-		typeof width == "string" && (width = Interface.Display[width.toUpperCase()]);
-		typeof height == "string" && (height = Interface.Display[height.toUpperCase()]);
-		typeof width != "undefined" && (this.width = Interface.getX(width));
-		typeof height != "undefined" && (this.height = Interface.getY(height));
+		typeof width == "string" && (width = ViewShortcut.LayoutParams[width.toUpperCase()]);
+		typeof height == "string" && (height = ViewShortcut.LayoutParams[height.toUpperCase()]);
+		typeof width != "undefined" && (this.width = getX(width));
+		typeof height != "undefined" && (this.height = getY(height));
 		this.window && this.update();
 	};
 	
@@ -155,24 +161,24 @@ const Window = function(params) {
 	};
 	
 	this.setX = function(x) {
-		typeof x != "undefined" && (this.x = Interface.getX(x));
+		typeof x != "undefined" && (this.x = getX(x));
 		this.window && this.update();
 	};
 	
 	this.setY = function(y) {
-		typeof y != "undefined" && (this.y = Interface.getY(y));
+		typeof y != "undefined" && (this.y = getY(y));
 		this.window && this.update();
 	};
 	
 	this.setPosition = function(x, y) {
-		typeof x != "undefined" && (this.x = Interface.getX(x));
-		typeof y != "undefined" && (this.y = Interface.getY(y));
+		typeof x != "undefined" && (this.x = getX(x));
+		typeof y != "undefined" && (this.y = getY(y));
 		this.window && this.update();
 	};
 	
 	this.setGravity = function(gravity) {
 		if (typeof gravity == "number") this.gravity = gravity;
-		else this.gravity = Interface.Gravity.parse(gravity.toUpperCase());
+		else this.gravity = ViewShortcut.parseGravity(gravity);
 		this.window && (this.remove(), this.create());
 	};
 	
@@ -190,9 +196,11 @@ const Window = function(params) {
 	
 	this.setOnUpdateListener = function(action) {
 		this.__update = function(scope) {
-			action && tryout(function() {
-				action(scope);
-			});
+			try {
+				action && action(scope);
+			} catch (e) {
+				reportError(e);
+			}
 		};
 	};
 	
@@ -207,9 +215,11 @@ const Window = function(params) {
 	
 	this.setOnShowListener = function(action) {
 		this.__show = function(scope) {
-			action && tryout(function() {
-				action(scope);
-			});
+			try {
+				action && action(scope);
+			} catch (e) {
+				reportError(e);
+			}
 		};
 	};
 	
@@ -228,9 +238,11 @@ const Window = function(params) {
 	
 	this.setOnHideListener = function(action) {
 		this.__hide = function(scope) {
-			action && tryout(function() {
-				action(scope);
-			});
+			try {
+				action && action(scope);
+			} catch (e) {
+				reportError(e);
+			}
 		};
 	};
 	

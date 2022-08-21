@@ -40,7 +40,7 @@ ImageFactory.getCountByTag = function(tag) {
 };
 
 ImageFactory.compressBitmap = function(key, min, max) {
-	let size = LOW_MEMORY_MODE ? min : Interface.Display.HEIGHT > 480 ? Interface.Display.HEIGHT < 1080 ? min + Interface.Display.HEIGHT / 1560 * (max - min) : max : min,
+	let size = LOW_MEMORY_MODE ? min : getDisplayHeight() > 480 ? getDisplayHeight() < 1080 ? min + getDisplayHeight() / 1560 * (max - min) : max : min,
 		bitmap = this.getBitmap(key), width = bitmap.getWidth(), height = bitmap.getHeight(), dx = Math.ceil(width * size), dy = Math.ceil(height * size);
 	this.loaded[key] = android.graphics.Bitmap.createScaledBitmap(android.graphics.Bitmap.createBitmap(bitmap, 0, 0, width, height), dx, dy, false);
 };
