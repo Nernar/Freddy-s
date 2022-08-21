@@ -1,20 +1,12 @@
-isHorizon = (function() {
-	try {
-		return Packages.com.zhekasmirnov.innercore.api.Version.INNER_CORE_VERSION.level >= 10;
-	} catch (e) {
-		return false;
-	}
-})();
-
 isLegacy = (function() {
 	try {
 		return Packages.com.zhekasmirnov.apparatus.minecraft.version.MinecraftVersions.getCurrent().getCode() == 11;
 	} catch (e) {
-		return isHorizon;
+		return true;
 	}
 })();
 
-$ = new JavaImporter(isHorizon ? Packages.com.zhekasmirnov.innercore.mod.build : Packages.zhekasmirnov.launcher.mod.build);
+$ = new JavaImporter(Packages.com.zhekasmirnov.innercore.mod.build);
 compileOrLoadExecutable = $.ModBuilder.__javaObject__.getDeclaredMethod("compileOrLoadExecutable", $.Mod.__javaObject__, $.CompiledSources.__javaObject__, $.BuildConfig.Source.__javaObject__);
 compileOrLoadExecutable.setAccessible(true);
 
@@ -22,7 +14,7 @@ loadLibrary = function(sourceName) {
 	try {
 		for (let i = 0; i < __mod__.buildConfig.sourcesToCompile.size(); i++) {
 			let source = __mod__.buildConfig.sourcesToCompile.get(i);
-			if (source.sourceName == sourceName && (!isHorizon || isLegacy || source.gameVersion.isCompatible())) {
+			if (source.sourceName == sourceName && (isLegacy || source.gameVersion.isCompatible())) {
 				if (source.apiInstance == null) {
 					log("could not find api for " + source.path + ", maybe it is missing in build.config or name is incorrect, compilation failed.");
 				} else {
@@ -56,8 +48,6 @@ try {
 	}
 	outputFile.mkdirs();
 	executeInEnvironment(path, {
-		innercore: !isHorizon,
-		horizon: isHorizon,
 		legacy: isLegacy,
 		directory: output
 	});

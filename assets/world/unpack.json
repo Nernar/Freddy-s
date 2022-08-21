@@ -3,16 +3,12 @@
 	"output": "`query.directory`",
 	"sequence": [
 		{
-			"condition": "!query.legacy && query.horizon",
-			"path": "world-release.zip"
+			"condition": "!query.legacy",
+			"path": "world.zip"
 		},
 		{
 			"condition": "query.legacy",
 			"path": "world-legacy.zip"
-		},
-		{
-			"condition": "query.innercore",
-			"path": "world.zip"
 		}
 	]
 }

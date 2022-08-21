@@ -1,24 +1,8 @@
-const launchModification = function(additionalScope) {
-	if (this.isInstant !== undefined) {
-		return;
-	}
-	if (additionalScope !== undefined) {
-		__mod__.RunMod(additionalScope);
-		return;
-	}
+try {
+	ConfigureMultiplayer({
+		isClientOnly: false
+	});
 	Launch();
-};
-
-(function() {
-	try {
-		ConfigureMultiplayer({
-			isClientOnly: false
-		});
-	} catch (e) {
-		launchModification({
-			isOutdated: true
-		});
-		return;
-	}
-	launchModification();
-})();
+} catch (e) {
+	Logger.Log("Freddy's: Client outdated, modification is not supported! Please, upgrade Inner Core to Horizon.", "ERROR");
+}

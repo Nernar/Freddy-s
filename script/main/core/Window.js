@@ -115,7 +115,7 @@ const Window = function(params) {
 			scope.__create(scope);
 		});
 		this.window = new android.widget.PopupWindow(this.widget.view, this.width, this.height);
-		isHorizon && this.window.setAttachedInDecor(isHorizon);
+		this.window.setAttachedInDecor(true);
 		this.window.setTouchable(false);
 		this.window.showAtLocation(getDecorView(), this.gravity, this.x, this.y);
 	};

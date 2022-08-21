@@ -2,10 +2,10 @@ MCSystem.setLoadingTip(NAME + ": Preparing APIs");
 
 const Dirs = {
 	EXTERNAL: android.os.Environment.getExternalStorageDirectory(),
-	DATA: android.os.Environment.getDataDirectory() + "/data/" + (isHorizon ? getContext().getPackageName() : "com.zhekasmirnov.innercore") + "/",
-	MOD: isHorizon ? __packdir__ + "innercore/mods/" : "/games/com.mojang/mods/",
-	WORLD: isHorizon ? __packdir__ + "worlds/" : "/games/com.mojang/innercoreWorlds/",
-	OPTION: isHorizon ? "/games/horizon/minecraftpe/options.txt" : "/games/com.mojang/minecraftpe/options.txt",
+	DATA: android.os.Environment.getDataDirectory() + "/data/" + getContext().getPackageName() + "/",
+	MOD: __packdir__ + "innercore/mods/",
+	WORLD: __packdir__ + "worlds/",
+	OPTION: "/games/com.mojang/minecraftpe/options.txt",
 	LOGGING: __dir__ + ".logging/",
 	TODO: __dir__ + ".todo/",
 	EVALUATE: __dir__ + ".todo/.eval/",
@@ -68,6 +68,10 @@ Files.writeKey = function(file, obj, separator) {
 		result.push(item + separator + obj[item]);
 	}
 	this.write(file, result.join("\n"));
+};
+
+Files.linesCount = function(file) {
+	return this.read(file, true).length;
 };
 
 Files.runScript = function(file) {

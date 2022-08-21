@@ -156,7 +156,7 @@ Callback.addCallback("LevelSelected", function(nameWorld, dirWorld) {
 	});
 });
 
-Callback.addCallback(isHorizon ? "LevelDisplayed" : "LevelLoaded", function() {
+Callback.addCallback("LevelDisplayed", function() {
 	if (!isCorrectWorld) {
 		return;
 	}
@@ -166,7 +166,7 @@ Callback.addCallback(isHorizon ? "LevelDisplayed" : "LevelLoaded", function() {
 			if (!IN_CREATIVE) {
 				if (random(1, 1000) == 1) CreepyStartScene.run();
 				else EnterScene.run();
-				World.setNightMode(isHorizon);
+				World.setNightMode(true);
 				setupBlocks();
 			}
 			WarningWindow.dismiss();

@@ -1,2 +1,16 @@
 resourcePack.ntfnaf.name=Freddy Fazbear's
 resourcePack.ntfnaf.description=Property of Fazbear Entertainment.
+
+entity.ntfnaf:bonnie.name=Bonnie
+entity.ntfnaf:chica.name=Chica
+entity.ntfnaf:endoskeleton.name=Endoskeleton
+entity.ntfnaf:freddy.name=Freddy
+entity.ntfnaf:foxy.name=Foxy
+entity.ntfnaf:cupcake.name=Cupcake
+
+entity.ntfnaf:camera.name=Camera
+
+entity.ntfnaf:golden_freddy.name=It's Me
+entity.ntfnaf:springtrap.name=Springtrap
+
+entity.ntfnaf:guard.name=Night Guard

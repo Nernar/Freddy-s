@@ -19,7 +19,11 @@ const Music = function(path) {
 		if (file.exists()) {
 			this.reset();
 			this.player.setDataSource(file);
-			!LOW_MEMORY_MODE && this.player.prepare();
+			try {
+				!LOW_MEMORY_MODE && this.player.prepare();
+			} catch (e) {
+				log("Music", "Prepare (path=" + path + ") failed: " + e);
+			}
 		} else log("Music", "Cannot find " + file.getName());
 	};
 	
@@ -58,8 +62,12 @@ const Music = function(path) {
 	this.play = function() {
 		this.isPlaying() && this.restart();
 		this.__source && this.setSource(this.__source());
-		LOW_MEMORY_MODE && this.player.prepare();
-		this.player.start();
+		try {
+			LOW_MEMORY_MODE && this.player.prepare();
+			this.player.start();
+		} catch (e) {
+			log("Music", "Start failed: " + e);
+		}
 	};
 	
 	this.pause = function() {
@@ -69,7 +77,11 @@ const Music = function(path) {
 	this.stop = function() {
 		if (this.isPlaying()) {
 			this.player.stop();
-			!LOW_MEMORY_MODE && this.player.prepare();
+			try {
+				!LOW_MEMORY_MODE && this.player.prepare();
+			} catch (e) {
+				log("Music", "Prepare when stopped failed: " + e);
+			}
 		}
 	};
 	

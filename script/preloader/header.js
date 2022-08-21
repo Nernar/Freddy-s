@@ -19,10 +19,6 @@
 const IN_CREATIVE = false;
 
 const getWorldsStorageLocation = function() {
-	if (!isHorizon) {
-		return android.os.Environment.getExternalStorageDirectory()
-			+ "/games/com.mojang/innercoreWorlds/";
-	}
 	return __packdir__ + "worlds/";
 };
 
