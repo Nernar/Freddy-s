@@ -8,10 +8,3 @@
 /assets/errors.log
 /models/divided/
 /models/joined/
-/models/array/
-/music/
-/gui/
-
-# Enstablized source
-/script/main/debug/
-/script/main/storage/protect.js

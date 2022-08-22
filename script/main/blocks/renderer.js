@@ -11,25 +11,9 @@ const DERenderer = {
  */
 DERenderer.load = function(name) {
 	name.endsWith(".der") && (name = name.substring(0, name.length - 4));
-	let file = new java.io.File(__dir__ + "models", name + ".der");
+	let file = new java.io.File(__dir__ + "models", name + ".json");
 	if (!file.exists()) return log("DERenderer", "Cannot find: " + name);
-	let loaded = Encyption.decrypt(Files.readBytes(file));
-	eval("this.loaded[name] = " + new java.lang.String(loaded));
-};
-
-/**
- * Compile previously divided .json model
- * from `/models/array` directory to release
- * type as .der extension, that can be loaded
- * with [[DERenderer.load]] completely.
- * @param {string} name as relative path
- */
-DERenderer.compile = function(name) {
-	name.endsWith(".json") && (name = name.substring(0, name.length - 5));
-	let file = new java.io.File(__dir__ + "models/array", name + ".json"),
-		source = new java.io.File(__dir__ + "models", name + ".der");
-	if (!file.exists()) return log("DERenderer", "Cannot find: " + name);
-	Files.writeBytes(source, Encyption.encrypt(Files.readBytes(file)));
+	eval("this.loaded[name] = " + Files.read(file));
 };
 
 /**
@@ -38,18 +22,10 @@ DERenderer.compile = function(name) {
  * with [[DEVELOP]] mode from `/models/array`.
  */
 DERenderer.prepare = function() {
-	if (DEVELOP && IN_CREATIVE) {
-		let arr = FileTools.GetListOfFiles(__dir__ + "models/array", "json");
-		for (let i = 0; i < arr.length; i++) {
-			MCSystem.setLoadingTip(NAME + ": Saving DERenderer " + (i + 1) + "/" + arr.length);
-			Files.deleteRecursive(__dir__ + "models/" + arr[i].getName().replace(".json", ".der"));
-			this.compile(arr[i].getName());
-		}
-	}
-	let list = FileTools.GetListOfFiles(__dir__ + "models", "der");
+	let list = FileTools.GetListOfFiles(__dir__ + "models", "json");
 	for (let i = 0; i < list.length; i++) {
 		MCSystem.setLoadingTip(NAME + ": Loading DERenderer " + (i + 1) + "/" + list.length);
-		this.load(list[i].getName());
+		this.load(Files.getNameWithoutExtension(list[i].getName()));
 	}
 };
 

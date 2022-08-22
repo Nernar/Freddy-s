@@ -263,8 +263,10 @@ Cameras.execute = function(camera) {
 		else (this.deviationTick = 100, this.isBackDeviation = !this.isBackDeviation);
 	}
 	if (Office.active[4]) {
-		let camera = Cameras.findCameraById(camera), pitch = camera.angle.pitch + this.deviationAngle;
-		camera.id != "3" && Entity.setLookAngle(camera.entity, pitch / 180 * Math.PI, -camera.angle.yaw / 180 * Math.PI);
+		let found = this.findCameraById(camera);
+		if (found == null) return log("Camera", "Not found " + camera);
+		let pitch = found.angle.pitch + this.deviationAngle;
+		found.id != "3" && Entity.setLookAngle(found.entity, pitch / 180 * Math.PI, -found.angle.yaw / 180 * Math.PI);
 	}
 };
 
