@@ -1,10 +1,9 @@
-/.logging/
-/.todo/
-/script/main.js
-/script/preloader.js
-/.placeholder.ico
-
-# Local development
-/assets/errors.log
-/models/divided/
-/models/joined/
+output
+tsconfig.json
+*.log
+*.icmod
+.logging/
+.todo/
+.placeholder.ico
+assets/root/models/divided/
+assets/root/models/joined/

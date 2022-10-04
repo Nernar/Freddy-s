@@ -1,0 +1,57 @@
+{
+	"info": {
+		"name": "Freddy's",
+		"version": "Beta 0.4.2.1",
+		"author": "Nernar",
+		"description": "Survive five nights with a night guard at a pizzeria, defending animatronics.",
+		"clientOnly": false
+	},
+	"api": "CoreEngine",
+	"resources": [
+		{
+			"path": "assets/resource",
+			"type": "resource_directory"
+		}
+	],
+	"sources": [
+		{
+			"source": "lib/*",
+			"type": "library",
+			"language": "javascript"
+		},
+		{
+			"type": "library",
+			"language": "javascript",
+			"source": "script/library/Files.js"
+		},
+		{
+			"type": "library",
+			"language": "javascript",
+			"source": "script/library/Environment.js"
+		},
+		{
+			"type": "launcher",
+			"language": "javascript",
+			"source": "script/launcher.js"
+		},
+		{
+			"type": "main",
+			"language": "javascript",
+			"source": "script/main",
+			"target": "script/main.js"
+		},
+		{
+			"type": "preloader",
+			"language": "javascript",
+			"source": "script/preloader",
+			"target": "script/preloader.js"
+		}
+	],
+	"compile": [],
+	"additional": [
+		{
+			"source": "assets/root/*",
+			"targetDir": "."
+		}
+	]
+}
